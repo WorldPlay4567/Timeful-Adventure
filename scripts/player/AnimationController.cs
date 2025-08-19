@@ -1,3 +1,4 @@
+using ClassDirectionState;
 using ClassPlayerEntity;
 using Godot;
 using System;
@@ -14,23 +15,22 @@ namespace Animations
 			animPlayer = GetNode<AnimationPlayer>("../AnimationPlayer");
 		}
 
-
-		public void tick(bool is_walk, PlayerEntity.DirectionState rotateDirection)
+		public void tick(bool is_walk, DirectionState rotateDirection)
 		{
 			if (is_walk)
 			{
 				switch (rotateDirection)
 				{
-					case PlayerEntity.DirectionState.UP:
+					case DirectionState.UP:
 						animPlayer.Play("up");
 						break;
-					case PlayerEntity.DirectionState.LEFT:
+					case DirectionState.LEFT:
 						animPlayer.Play("left");
 						break;
-					case PlayerEntity.DirectionState.RIGHT:
+					case DirectionState.RIGHT:
 						animPlayer.Play("right");
 						break;
-					case PlayerEntity.DirectionState.DOWN:
+					case DirectionState.DOWN:
 						animPlayer.Play("down");
 						break;
 				}

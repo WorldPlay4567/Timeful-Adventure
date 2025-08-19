@@ -2,6 +2,7 @@ using Godot;
 using Animations;
 
 using System;
+using ClassDirectionState;
 namespace ClassPlayerEntity
 {
 	public partial class PlayerEntity : CharacterBody2D
@@ -66,9 +67,5 @@ namespace ClassPlayerEntity
 		}
 
 
-		public enum DirectionState
-		{
-			LEFT, RIGHT, UP, DOWN
-		}
 	}
 }
