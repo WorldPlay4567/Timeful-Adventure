@@ -3,6 +3,7 @@ using Animations;
 
 using System;
 using ClassDirectionState;
+using ClassMainGame;
 namespace ClassPlayerEntity
 {
 	public partial class PlayerEntity : CharacterBody2D
@@ -36,13 +37,14 @@ namespace ClassPlayerEntity
 
 				is_walk = false;
 			}
-
+			
 			Velocity = velocity;
 			MoveAndSlide();
 		}
 
 		public override void _Process(double delta)
 		{
+			Test();
 			animController.tick(is_walk, RotateDirection);
 		}
 
@@ -67,5 +69,12 @@ namespace ClassPlayerEntity
 		}
 
 
+		public void Test() {
+			if (Input.IsActionJustPressed("F"))
+			{
+				MainGame.setTimeStop(!MainGame.getTimeStop());
+				GD.Print("TIME SET" + MainGame.getTimeStop());
+			}
+		}
 	}
 }
