@@ -1,8 +1,13 @@
-[gd_scene load_steps=11 format=3 uid="uid://bya1k5f8jy5cw"]
+[gd_scene load_steps=13 format=3 uid="uid://bya1k5f8jy5cw"]
 
 [ext_resource type="Script" uid="uid://bk7ry6u18lwnq" path="res://scripts/player/PlayerEntity.cs" id="1_6chle"]
 [ext_resource type="Texture2D" uid="uid://cb8osdfpx0a3" path="res://textures/player/wither_no_magic_v2.png" id="1_74kgn"]
 [ext_resource type="Script" uid="uid://b0d6nob3vn2yr" path="res://scripts/player/AnimationController.cs" id="3_6chle"]
+[ext_resource type="Script" uid="uid://6y1epsdr5r3k" path="res://tests/MakingDamageController.cs" id="4_nsjds"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_l4r2o"]
+radius = 6.2
+height = 21.6
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_pfif7"]
 radius = 6.0
@@ -164,6 +169,11 @@ _data = {
 scale = Vector2(5, 5)
 script = ExtResource("1_6chle")
 
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CapsuleShape2D_l4r2o")
+
 [node name="Colision" type="CollisionShape2D" parent="."]
 position = Vector2(0, 11)
 shape = SubResource("CapsuleShape2D_pfif7")
@@ -180,3 +190,7 @@ libraries = {
 
 [node name="AnimationController" type="Node" parent="."]
 script = ExtResource("3_6chle")
+
+[node name="MakingDamageController" type="Node" parent="." node_paths=PackedStringArray("area2D")]
+script = ExtResource("4_nsjds")
+area2D = NodePath("../Area2D")

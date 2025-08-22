@@ -22,6 +22,7 @@ namespace ClassPlayerEntity
 			Vector2 velocity = Velocity;
 
 			Vector2 direction = Input.GetVector("player_left", "player_right", "player_up", "player_down");
+			
 			if (direction != Vector2.Zero)
 			{
 				velocity.X = direction.X * Speed;
