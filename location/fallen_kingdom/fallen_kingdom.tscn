@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://cehtvdxjock1m"]
+
+[ext_resource type="PackedScene" uid="uid://bya1k5f8jy5cw" path="res://entity/player/player.tscn" id="1_cn7s5"]
+[ext_resource type="Texture2D" uid="uid://dwqknxc83n0oc" path="res://textures/test/cristal.png" id="2_jlgdm"]
+[ext_resource type="Script" uid="uid://cko106iq6jij5" path="res://scripts/entity/test/Sprite2d.cs" id="2_vd0xe"]
+
+[node name="Fallen Kingdom" type="Node2D"]
+
+[node name="PlayerEntity" parent="." instance=ExtResource("1_cn7s5")]
+position = Vector2(303, 237)
+
+[node name="Camera2D" type="Camera2D" parent="PlayerEntity"]
+zoom = Vector2(1.245, 1.245)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(25.25, 39.75)
+scale = Vector2(4.36667, 3.56452)
+texture = ExtResource("2_jlgdm")
+script = ExtResource("2_vd0xe")
