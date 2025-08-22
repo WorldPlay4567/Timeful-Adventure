@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://btn4s0gp7es8r"]
 
 [ext_resource type="PackedScene" uid="uid://b08sk6c1rgsi6" path="res://utils/level_manager.tscn" id="1_onv7e"]
-[ext_resource type="PackedScene" uid="uid://bya1k5f8jy5cw" path="res://mobs/player/player.tscn" id="1_smkvm"]
+[ext_resource type="PackedScene" uid="uid://bya1k5f8jy5cw" path="res://entity/player/player.tscn" id="1_smkvm"]
 [ext_resource type="PackedScene" uid="uid://b3716dcpod2c1" path="res://mobs/forest_enemies/angry_clock.tscn" id="2_hnhk4"]
 [ext_resource type="PackedScene" uid="uid://d1tqg70wlphfm" path="res://mobs/forest_boss/evil_clock_boss.tscn" id="3_g08bx"]
 [ext_resource type="Script" uid="uid://dldy4tli2pq3b" path="res://scripts/level_manager/EnemySpawnPoint.cs" id="3_hnhk4"]
