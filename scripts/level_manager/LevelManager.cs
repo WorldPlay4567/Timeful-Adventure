@@ -1,6 +1,6 @@
 
 using System.Linq;
-
+using System.Threading.Tasks;
 using Godot;
 using Godot.Collections;
 
@@ -43,11 +43,7 @@ public partial class LevelManager : Node2D
 			{
 				for (int i = 1; i <= waves[currentWave]; i++)
 				{
-					EnemySpawnPoint chosenEnemySpawnPoint = enemySpawnPoints[rng.RandiRange(0, enemySpawnPoints.Count - 1)];
-					Enemy chosenInstantiatedEnemy = enemies[rng.RandiRange(0, enemies.Count - 1)].Instantiate<Enemy>();
-					chosenInstantiatedEnemy.Position = chosenEnemySpawnPoint.GlobalPosition;
-					rootNode.AddChild(chosenInstantiatedEnemy);
-					ToSignal(GetTree().CreateTimer(1), "timeout");
+					_SpawnWithDelay();
 				}
 			}
 			else
@@ -56,29 +52,38 @@ public partial class LevelManager : Node2D
 				rootNode.AddChild(bossNode);
 			}
 		}
-	public void CountDeadEnemies()
-	{
-		deadEnemiesCounter += 1;
-		if (deadEnemiesCounter == waves[currentWave])
+		private async Task _SpawnWithDelay()
 		{
-			
-			deadEnemiesCounter = 0;
-			currentWave += 1;
-			cooldownWaveTimer.Start();
+
+			EnemySpawnPoint chosenEnemySpawnPoint = enemySpawnPoints[rng.RandiRange(0, enemySpawnPoints.Count - 1)];
+			Enemy chosenInstantiatedEnemy = enemies[rng.RandiRange(0, enemies.Count - 1)].Instantiate<Enemy>();
+			chosenInstantiatedEnemy.Position = chosenEnemySpawnPoint.GlobalPosition;
+			rootNode.AddChild(chosenInstantiatedEnemy);
+			await ToSignal(GetTree().CreateTimer(0.5), "timeout");
 		}
-	}
-	private void ConnectSignals()
-	{
-		SignalBus.Instance.EnemyDied+=CountDeadEnemies;
-		cooldownWaveTimer.Timeout += SpawnEnemies;
-	}
-	private void DisconnectSignals()
-	{	
-		SignalBus.Instance.EnemyDied -= CountDeadEnemies;
-		cooldownWaveTimer.Timeout -= SpawnEnemies;
-	}
-	public override void _ExitTree()
+		public void CountDeadEnemies()
 		{
-			DisconnectSignals();
+			deadEnemiesCounter += 1;
+			if (deadEnemiesCounter == waves[currentWave])
+			{
+
+				deadEnemiesCounter = 0;
+				currentWave += 1;
+				cooldownWaveTimer.Start();
+			}
 		}
+		private void ConnectSignals()
+		{
+			SignalBus.Instance.EnemyDied+=CountDeadEnemies;
+			cooldownWaveTimer.Timeout += SpawnEnemies;
+		}
+		private void DisconnectSignals()
+		{	
+			SignalBus.Instance.EnemyDied -= CountDeadEnemies;
+			cooldownWaveTimer.Timeout -= SpawnEnemies;
+		}
+		public override void _ExitTree()
+			{
+				DisconnectSignals();
+			}
 	}

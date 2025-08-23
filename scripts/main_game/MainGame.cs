@@ -3,9 +3,10 @@ using Godot;
 namespace ClassMainGame
 {
     public partial class MainGame : Node {
+        public static string newScene;
         static bool isTimeStop = false;
         static bool isPlayGame = true;
-
+        
         public static void setTimeStop(bool _setTimeStop)
         {
             if (isPlayGame)

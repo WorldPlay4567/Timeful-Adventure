@@ -1,40 +1,57 @@
-[gd_scene load_steps=6 format=3 uid="uid://btn4s0gp7es8r"]
+[gd_scene load_steps=8 format=3 uid="uid://btn4s0gp7es8r"]
 
-[ext_resource type="PackedScene" uid="uid://b08sk6c1rgsi6" path="res://utils/level_manager.tscn" id="1_onv7e"]
-[ext_resource type="PackedScene" uid="uid://bya1k5f8jy5cw" path="res://entity/player/player.tscn" id="1_smkvm"]
-[ext_resource type="PackedScene" uid="uid://b3716dcpod2c1" path="res://mobs/forest_enemies/angry_clock.tscn" id="2_hnhk4"]
-[ext_resource type="PackedScene" uid="uid://d1tqg70wlphfm" path="res://mobs/forest_boss/evil_clock_boss.tscn" id="3_g08bx"]
-[ext_resource type="Script" uid="uid://dldy4tli2pq3b" path="res://scripts/level_manager/EnemySpawnPoint.cs" id="3_hnhk4"]
+[ext_resource type="PackedScene" uid="uid://bya1k5f8jy5cw" path="res://entity/player/player.tscn" id="1_eanpx"]
+[ext_resource type="PackedScene" uid="uid://b08sk6c1rgsi6" path="res://util_scenes/level_manager.tscn" id="2_amf2e"]
+[ext_resource type="PackedScene" uid="uid://d1tqg70wlphfm" path="res://mobs/forest_boss/evil_clock_boss.tscn" id="3_s6qbf"]
+[ext_resource type="PackedScene" uid="uid://b3716dcpod2c1" path="res://mobs/forest_enemies/angry_clock.tscn" id="4_jtcsp"]
+[ext_resource type="Script" uid="uid://dldy4tli2pq3b" path="res://scripts/level_manager/EnemySpawnPoint.cs" id="5_d3df2"]
+[ext_resource type="PackedScene" uid="uid://b8gt2ei4ig1eg" path="res://util_scenes/scene_changer/scene_changer.tscn" id="6_i2xtu"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_amf2e"]
+size = Vector2(162, 81)
 
 [node name="Forest" type="Node2D"]
 
-[node name="PlayerEntity" parent="." instance=ExtResource("1_smkvm")]
+[node name="SceneChanger" parent="." node_paths=PackedStringArray("spawnPos", "player") instance=ExtResource("6_i2xtu")]
+position = Vector2(484, 20)
+sceneToChangeOn = "fallen_kingdom"
+spawnPos = NodePath("SpawnPlayerPos")
+player = NodePath("../PlayerEntity")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SceneChanger"]
+position = Vector2(-1, -0.5)
+shape = SubResource("RectangleShape2D_amf2e")
+
+[node name="SpawnPlayerPos" type="Marker2D" parent="SceneChanger"]
+position = Vector2(-1, 109)
+
+[node name="PlayerEntity" parent="." instance=ExtResource("1_eanpx")]
 position = Vector2(389, 338)
 
-[node name="LevelManager" parent="." node_paths=PackedStringArray("rootNode") instance=ExtResource("1_onv7e")]
+[node name="LevelManager" parent="." node_paths=PackedStringArray("rootNode") instance=ExtResource("2_amf2e")]
 cooldownWaveTimeSec = 5
 rootNode = NodePath("..")
-boss = ExtResource("3_g08bx")
-enemies = Array[PackedScene]([ExtResource("2_hnhk4")])
+boss = ExtResource("3_s6qbf")
+enemies = Array[PackedScene]([ExtResource("4_jtcsp")])
 waves = Dictionary[int, int]({
 1: 2,
 2: 4,
 3: 6,
 4: 8
 })
-currentWave = 5
+currentWave = 1
 
 [node name="EnemySpawnPoint" type="Node2D" parent="LevelManager"]
 position = Vector2(40, 296)
-script = ExtResource("3_hnhk4")
+script = ExtResource("5_d3df2")
 metadata/_custom_type_script = "uid://dldy4tli2pq3b"
 
 [node name="EnemySpawnPoint2" type="Node2D" parent="LevelManager"]
 position = Vector2(1079, 266)
-script = ExtResource("3_hnhk4")
+script = ExtResource("5_d3df2")
 metadata/_custom_type_script = "uid://dldy4tli2pq3b"
 
 [node name="EnemySpawnPoint3" type="Node2D" parent="LevelManager"]
 position = Vector2(519, 533)
-script = ExtResource("3_hnhk4")
+script = ExtResource("5_d3df2")
 metadata/_custom_type_script = "uid://dldy4tli2pq3b"
