@@ -17,8 +17,9 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-SignalBus="*res://utils/SignalBus.cs"
+SignalBus="*res://scripts/utility/SignalBus.cs"
 MainGame="*res://scripts/main_game/MainGame.cs"
+Globals="*res://scripts/utility/Globals.cs"
 
 [dotnet]
 

@@ -1,12 +1,28 @@
-[gd_scene load_steps=4 format=3 uid="uid://cehtvdxjock1m"]
+[gd_scene load_steps=5 format=3 uid="uid://cehtvdxjock1m"]
 
-[ext_resource type="PackedScene" uid="uid://bya1k5f8jy5cw" path="res://entity/player/player.tscn" id="1_cn7s5"]
-[ext_resource type="Texture2D" uid="uid://dwqknxc83n0oc" path="res://textures/test/cristal.png" id="2_jlgdm"]
-[ext_resource type="Script" uid="uid://cko106iq6jij5" path="res://scripts/entity/test/Sprite2d.cs" id="2_vd0xe"]
+[ext_resource type="PackedScene" uid="uid://bya1k5f8jy5cw" path="res://entity/player/player.tscn" id="1_m5mju"]
+[ext_resource type="Texture2D" uid="uid://dwqknxc83n0oc" path="res://textures/test/cristal.png" id="2_j7elh"]
+[ext_resource type="PackedScene" uid="uid://b8gt2ei4ig1eg" path="res://util_scenes/scene_changer/scene_changer.tscn" id="3_s4xjk"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cpboa"]
+size = Vector2(123, 108)
 
 [node name="Fallen Kingdom" type="Node2D"]
 
-[node name="PlayerEntity" parent="." instance=ExtResource("1_cn7s5")]
+[node name="SceneChanger" parent="." node_paths=PackedStringArray("spawnPos", "player") instance=ExtResource("3_s4xjk")]
+position = Vector2(594, 21)
+sceneToChangeOn = "forest"
+spawnPos = NodePath("SpawnPlayerPos")
+player = NodePath("../PlayerEntity")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SceneChanger"]
+position = Vector2(0.5, -2)
+shape = SubResource("RectangleShape2D_cpboa")
+
+[node name="SpawnPlayerPos" type="Marker2D" parent="SceneChanger"]
+position = Vector2(4, 49)
+
+[node name="PlayerEntity" parent="." instance=ExtResource("1_m5mju")]
 position = Vector2(303, 237)
 
 [node name="Camera2D" type="Camera2D" parent="PlayerEntity"]
@@ -16,5 +32,4 @@ zoom = Vector2(1.245, 1.245)
 texture_filter = 1
 position = Vector2(25.25, 39.75)
 scale = Vector2(4.36667, 3.56452)
-texture = ExtResource("2_jlgdm")
-script = ExtResource("2_vd0xe")
+texture = ExtResource("2_j7elh")
